@@ -44,7 +44,7 @@ def exists(fname):
     return os.path.exists(fname)
 
 
-def make_fstruct():
+def make_fstruct(config):
     """ make folder structure with links. """
     for fname in config["files"]["linkfiles"]:
         curr_fname = (os.path.join(*config["paths"]["homedir"]) + 
@@ -92,7 +92,7 @@ def update():
 def check_package(packagename):
     return decode(run_cmd("dpkg -l {}".format(packagename)))
 
-def check_and_install_packages():
+def check_and_install_packages(config):
     packages = read_packages(config["files"]["packagefile"])
     update()
     for package in packages:
@@ -137,8 +137,8 @@ if __name__ == "__main__":
     sethostname(config["credentials"]["hostname"])
     add_group(config["credentials"]["username"], "vboxsf")
     # print(getkernel())
-    make_fstruct()  # make the links and folderstructure
-    check_and_install_packages()
+    make_fstruct(config)  # make the links and folderstructure
+    check_and_install_packages(config)
     install_python37(config["versions"]["python3.7"])
     setgitconfig(config["credentials"]["gitusername"], 
                  config["credentials"]["gitemail"])
