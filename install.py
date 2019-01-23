@@ -9,6 +9,8 @@ import sys
 import subprocess
 from datetime import datetime
 
+# TODO: set all parameters etc in a yaml or json file. Better in json because
+# it is natively supported by python. yaml parsing requires an external module.
 hostname = "ubuntu"
 username = "bh"
 gitusername = "Bonne Habekost"
@@ -141,5 +143,5 @@ if __name__ == "__main__":
     make_fstruct()  # make the links and folderstructure
     check_and_install_packages()
     install_python37(python37version)
-    # TODO: Install virtualenv
     setgitconfig(gitusername, gitemail)
+    # TODO: Install virtualenv
