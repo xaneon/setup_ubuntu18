@@ -7,30 +7,25 @@ sudo python3 install.py
 import os
 import sys
 import subprocess
+import json
 from datetime import datetime
 
-# TODO: set all parameters etc in a yaml or json file. Better in json because
-# it is natively supported by python. yaml parsing requires an external module.
-hostname = "ubuntu"
-username = "bh"
-gitusername = "Bonne Habekost"
-gitemail = "bonne.habekost@gmail.com"
-logfname = "install.log"
-packagefile = "apt-packages"
-python37version = "3.7.2"
-linkfiles = "vim", "vimrc", "bashrc", "jupyter", "tmux.conf", "powerline"
-mountdir = os.path.join(os.sep, "media", "sf_caumont")
-dbdir = os.path.join(mountdir, "Dropbox")
-dotdir = os.path.join(dbdir, "Dotfiles", "WHOTRSURFACE20")
-homedir = os.path.join(os.sep, "home", username)
-now = datetime.today().strftime("%Y%m%d_%M%H%S")
+configfile = "config.json"
+
+def load_config(configfile):
+    with open(configfile) as fid:
+        config = json.loads("".join(fid.readlines()))
+    config["paths"]["homedir"] = [os.sep, "home",
+                                  config["credentials"]["username"]]
+    config["time"] = datetime.today().strftime("%Y%m%d_%M%H%S")
+    return config
 
 def log(func):
     def setlog(*args, **kwargs):
         r = func(*args, **kwargs)
         if r:
-            with open(logfname, "a") as fid:
-                fid.write(now + " --> " +
+            with open(config["files"]["logfname"], "a") as fid:
+                fid.write(config["time"] + " --> " +
                           func.__name__ + ": " + decode(r))
         return r
     return setlog
@@ -51,12 +46,13 @@ def exists(fname):
 
 def make_fstruct():
     """ make folder structure with links. """
-    for fname in linkfiles:
-        curr_fname = homedir + os.sep + "." + fname
-        dotfname = dotdir + os.sep + fname
+    for fname in config["files"]["linkfiles"]:
+        curr_fname = (os.path.join(*config["paths"]["homedir"]) + 
+                      os.sep + "." + fname)
+        dotfname = os.path.join(*[os.sep] +
+                                 config["paths"]["dotdir"]) + os.sep + fname
 
         if exists(curr_fname):
-
             run_cmd("rm {}".format(curr_fname))
             run_cmd("ln -s {} {}".format(dotfname, curr_fname))
         else:
@@ -97,7 +93,7 @@ def check_package(packagename):
     return decode(run_cmd("dpkg -l {}".format(packagename)))
 
 def check_and_install_packages():
-    packages = read_packages(packagefile)
+    packages = read_packages(config["files"]["packagefile"])
     update()
     for package in packages:
         curr_pcheck = check_package(package)
@@ -135,13 +131,15 @@ def setgitconfig(gitusername, gitemail):
     run_cmd("git config --global user.name {}".format(gitusername))
 
 if __name__ == "__main__":
+    config = load_config(configfile)  # read config from JSON file
     # username = getuser()  # better user variable username 
                             # because the script might be run by root.
-    sethostname(hostname)
-    add_group(username, "vboxsf")
+    sethostname(config["credentials"]["hostname"])
+    add_group(config["credentials"]["username"], "vboxsf")
     # print(getkernel())
     make_fstruct()  # make the links and folderstructure
     check_and_install_packages()
-    install_python37(python37version)
-    setgitconfig(gitusername, gitemail)
+    install_python37(config["versions"]["python3.7"])
+    setgitconfig(config["credentials"]["gitusername"], 
+                 config["credentials"]["gitemail"])
     # TODO: Install virtualenv

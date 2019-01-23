@@ -1,0 +1,26 @@
+{
+    "credentials": {
+                        "username": "bh",
+                        "hostname": "ubuntu",
+                        "gitusername": "Bonne Habekost",
+                        "gitemail": "bonne.habekost@gmail.com"
+                   },
+    "files":       {
+                        "logfname": "install.log",
+                        "packagefile": "apt-packages",
+                        "linkfiles": ["vim","vimrc", "bashrc", "jupyter", "tmux.conf",
+                                      "powerline"]
+
+                   },
+    "versions":    {
+                        "python3.7": "3.7.2"
+                   },
+    "paths":       {
+                        "mountdir": ["media", "sf_caumont"],
+                        "dbdir": ["media", "sf_caumont", "Dropbox"],
+                        "dotdir": ["media", "sf_caumont", "Dropbox", "Dotfiles", 
+                                   "WHOTRSURFACE20"]
+                   }
+}
+
+
