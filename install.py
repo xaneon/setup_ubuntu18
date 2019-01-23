@@ -141,13 +141,25 @@ def setup_virtualenvs(config):
     rootdir = os.path.join(*config["paths"]["homedir"] +
                             config["paths"]["virtualenvdir"])
     existingvirtualenvs = lsdirs(rootdir)
-    print(existingvirtualenvs)
     for virtenv, settings in config["environments"]["virtualenvs"].items():
         if virtenv in existingvirtualenvs:
             print("{} already exists".format(virtenv))
         else:
             source = "source /usr/share/virtualenvwrapper/virtualenvwrapper.sh"
-            run_cmd("{} && mkvirtualenv {}".format(source, virtenv))
+            interpreterpath = os.path.join(*[os.sep] + settings["bin"])
+            pipcachedir = os.path.join(*config["paths"]["homedir"] + [".cache", "pip"])
+            arguments = "-p {}".format(interpreterpath)
+            packages = " ".join(settings["libs"])
+            run_cmd("{} && mkvirtualenv {} {}".format(source, arguments, virtenv))
+            pipcmd = "pip install {}".format(packages)
+            print(pipcmd)
+            run_cmd("{} && workon {} && {}".format(source, virtenv, pipcmd))
+            run_cmd("chown -R {} {}".format(config["credentials"]["username"],
+                                            rootdir + os.sep + virtenv))
+            run_cmd("chown -R {} {}".format(config["credentials"]["username"], 
+                                            pipcachedir))
+
+
             # TODO: pass options for virtualenv including cache and interpreter
 
 def setgitconfig(gitusername, gitemail):

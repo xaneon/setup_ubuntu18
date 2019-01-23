@@ -25,7 +25,7 @@
     "environments":{
                         "virtualenvs": {
                                             "Default3.6": {
-                                                            "bin": ["usr", "local", "bin", 
+                                                            "bin": ["usr", "bin", 
                                                                      "python3.6"], 
                                                             "libs": ["numpy", "scipy", 
                                                                      "pandas", "ipython",
