@@ -33,7 +33,9 @@ def log(func):
 @log
 def run_cmd(cmd):
      output =  subprocess.Popen(cmd, shell=True,
-                                stdout=subprocess.PIPE)
+                                stdout=subprocess.PIPE,
+                                # stderr=subprocess.STDOUT, 
+                                executable='/bin/bash')
      content, status = output.communicate()
 
      if content:
@@ -126,6 +128,28 @@ def install_python37(versionnumber):
         # TODO: Not working properly because of permissions and output folder
         # etc.
 
+def lsdirs(path):
+    allfiles = os.listdir(path)
+    alldirs = [item for item in allfiles
+               if os.path.isdir(os.path.join(path, item))]
+    return alldirs
+
+
+def setup_virtualenvs(config):
+    # run_cmd("mkvirtualenv {}")
+    # TODO: run pip install with cache enabled to avoid reinstall
+    rootdir = os.path.join(*config["paths"]["homedir"] +
+                            config["paths"]["virtualenvdir"])
+    existingvirtualenvs = lsdirs(rootdir)
+    print(existingvirtualenvs)
+    for virtenv, settings in config["environments"]["virtualenvs"].items():
+        if virtenv in existingvirtualenvs:
+            print("{} already exists".format(virtenv))
+        else:
+            source = "source /usr/share/virtualenvwrapper/virtualenvwrapper.sh"
+            run_cmd("{} && mkvirtualenv {}".format(source, virtenv))
+            # TODO: pass options for virtualenv including cache and interpreter
+
 def setgitconfig(gitusername, gitemail):
     run_cmd("git config --global user.email {}".format(gitemail))
     run_cmd("git config --global user.name {}".format(gitusername))
@@ -143,3 +167,4 @@ if __name__ == "__main__":
     setgitconfig(config["credentials"]["gitusername"], 
                  config["credentials"]["gitemail"])
     # TODO: Install virtualenv
+    setup_virtualenvs(config)

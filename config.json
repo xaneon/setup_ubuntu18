@@ -9,7 +9,7 @@
                         "logfname": "install.log",
                         "packagefile": "apt-packages",
                         "linkfiles": ["vim","vimrc", "bashrc", "jupyter", "tmux.conf",
-                                      "powerline"]
+                                      "powerline", "pip_download_cache"]
 
                    },
     "versions":    {
@@ -19,7 +19,19 @@
                         "mountdir": ["media", "sf_caumont"],
                         "dbdir": ["media", "sf_caumont", "Dropbox"],
                         "dotdir": ["media", "sf_caumont", "Dropbox", "Dotfiles", 
-                                   "WHOTRSURFACE20"]
+                                   "WHOTRSURFACE20"],
+                        "virtualenvdir": [".virtualenvs"]
+                   },
+    "environments":{
+                        "virtualenvs": {
+                                            "Default3.6": {
+                                                            "bin": ["usr", "local", "bin", 
+                                                                     "python3.6"], 
+                                                            "libs": ["numpy", "scipy", 
+                                                                     "pandas", "ipython",
+                                                                     "jupyter"]
+                                                          }
+                                       }
                    }
 }
 
