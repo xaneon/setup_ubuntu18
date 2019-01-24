@@ -1,0 +1,11 @@
+---
+- name: Testing...
+  hosts: localhost
+  connection: local
+  become: true
+  become_user: root
+  become_method: sudo
+
+  tasks:
+  - name: Install Midnight Commander
+    apt: name=mc state=present

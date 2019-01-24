@@ -29,8 +29,20 @@
                                                                      "python3.6"], 
                                                             "libs": ["numpy", "scipy", 
                                                                      "pandas", "ipython",
-                                                                     "jupyter"]
+                                                                     "jupyter", "ipykernel", 
+                                                                     "matplotlib", "seaborn", 
+                                                                     "scikit-learn", "netmiko"]
+                                                          },
+                                            "Default3.7": {
+                                                            "bin": ["usr", "local", "bin", 
+                                                                     "python3.7"], 
+                                                            "libs": ["numpy", "scipy", 
+                                                                     "pandas", "ipython",
+                                                                     "jupyter", "ipykernel", 
+                                                                     "matplotlib", "seaborn", 
+                                                                     "scikit-learn", "netmiko"]
                                                           }
+
                                        }
                    }
 }

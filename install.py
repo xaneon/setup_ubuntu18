@@ -97,14 +97,20 @@ def check_package(packagename):
 def check_and_install_packages(config):
     packages = read_packages(config["files"]["packagefile"])
     update()
+    # print(packages)
     for package in packages:
         curr_pcheck = check_package(package)
+        # print(package, curr_pcheck)
+        # TODO: Check the package properly
+        # if False:
         if package in curr_pcheck:
             continue
         else:
             if "linux-headers" not in package:
                 run_cmd("apt-get install {}".format(package))
+                # print(package)
             else:
+                # print(package)
                 kernel = getkernel()
                 run_cmd("apt-get install {}-{}".format(package, kernel))
 
@@ -136,8 +142,6 @@ def lsdirs(path):
 
 
 def setup_virtualenvs(config):
-    # run_cmd("mkvirtualenv {}")
-    # TODO: run pip install with cache enabled to avoid reinstall
     rootdir = os.path.join(*config["paths"]["homedir"] +
                             config["paths"]["virtualenvdir"])
     existingvirtualenvs = lsdirs(rootdir)
@@ -156,11 +160,9 @@ def setup_virtualenvs(config):
             run_cmd("{} && workon {} && {}".format(source, virtenv, pipcmd))
             run_cmd("chown -R {} {}".format(config["credentials"]["username"],
                                             rootdir + os.sep + virtenv))
-            run_cmd("chown -R {} {}".format(config["credentials"]["username"], 
+            run_cmd("chown -R {} {}".format(config["credentials"]["username"],
                                             pipcachedir))
 
-
-            # TODO: pass options for virtualenv including cache and interpreter
 
 def setgitconfig(gitusername, gitemail):
     run_cmd("git config --global user.email {}".format(gitemail))
