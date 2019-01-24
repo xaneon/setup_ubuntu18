@@ -1,4 +1,5 @@
 ---
+
 - name: Testing...
   hosts: localhost
   connection: local
@@ -6,8 +7,6 @@
   become_user: root
   become_method: sudo
 
-  vars:
-    redis_version: 2.6.16
 
   tasks:
   - name: Install all apt-packages
@@ -55,23 +54,4 @@
                 - tk8.6-dev
                 - ansible
 
-  - name: Download Redis
-    shell: creates=/tmp/redis-$redis_version wget -O - http://download.redis.io/releases/redis-$redis_version.tar.gz | tar -xz -C /tmp
 
-  - name: Install Redis
-    command: creates=/usr/local/bin/redis-server chdir=/tmp/redis-$redis_version make install
-    sudo: yes
-
-  - name: Create user redis
-    user: name=redis system=yes home=/var/lib/redis shell=/bin/false
-    sudo: yes
-
-  - name: Configure Upstart for Redis
-    copy: src=files/upstart_redis.conf dest=/etc/init/redis.conf
-    sudo: yes
-    notify: Restart Redis
-
-  handlers:
-    - name: Restart Redis
-      service: name=redis state=restarted
-      sudo: yes
