@@ -7,8 +7,18 @@
   become_user: root
   become_method: sudo
 
+  vars:
+    python3_version: 3.7.2
+    python3_url: "https://www.python.org/ftp/python/{{ python3_version }}/Python-{{ python3_version }}.tgz"
+    python3_install_dir: "/tmp/Python-{{ python3_version }}"
 
   tasks:
+  - name: Python3.7 PPA 
+    apt_repository:
+      validate_certs: no
+      repo: 'ppa:deadsnakes/ppa'
+      state: present
+
   - name: Install all apt-packages
     apt: name={{item}} state=present
     with_items:
@@ -21,6 +31,12 @@
                 - gnome-system-tools
                   # - linux-headers 
                 - build-essential 
+                - libncurses5-dev
+                - libgdbm-dev
+                - libnss3-dev 
+                - libssl-dev 
+                - libreadline-dev 
+                - libffi-dev
                 - dkms 
                 - qterminal 
                 - firefox 
@@ -40,6 +56,7 @@
                 - python3.6 
                 - python3.6-dev 
                 - python3.6-tk 
+                - python3.7-tk 
                 - virtualenv 
                 - virtualenvwrapper 
                 - libncurses5-dev 
@@ -54,4 +71,26 @@
                 - tk8.6-dev
                 - ansible
 
+  - name: Downloading Python3 sources
+    get_url:
+      url: "{{ python3_url }}"
+      dest: "/tmp/Python-{{ python3_version }}.tar.gz"
+    register: python3_source
+
+  - name: Unpacking Python3
+    unarchive:
+      copy: no
+      src: "{{ python3_source.dest }}"
+      dest: /tmp/
+    when: python3_source.changed
+    register: python3_source_unpack
+
+  - name: Configuring Python3 source with custom modules
+    # command: "./configure --sbin-path={{ nginx_sbin_path }} --conf-path={{ nginx_conf_path }} {{ nginx_custom_modules }}"
+    # command: "./configure --enable-optimizations --with-tcltk-includes='-I/usr/include' --with-tcltk-libs='-L/usr/lib64 -ltcl8.6 -L/usr/lib64 -ltk8.6'"
+    command: "./configure --enable-optimizations"
+    args:
+      chdir: "{{ python3_install_dir }}"
+    when: python3_source_unpack is changed
+    register: python3_configure
 
