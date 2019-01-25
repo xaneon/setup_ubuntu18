@@ -113,7 +113,7 @@
     when: python3_configure is changed
 
   - name: creating new virtualenv envs
-    shell: "virtualenv -p /usr/bin/python3.6 {{ project_name }}"
+    shell: "virtualenv -p {{ python37 }} {{ project_name }}"
     args:
       chdir: "{{ virtualenv_dir }}/"
     become_user: "{{ username }}"
@@ -123,5 +123,5 @@
       # requirements: "/{{ project_name }}/ {{ project_requirements }}"
       requirements: "{{ user_home_dir }}/{{ setup_dir }}/{{ project_requirements }}"
       virtualenv: "{{ virtualenv_dir }}/{{ project_name }}"
-      virtualenv_python: python3.6
+      virtualenv_python: python3.7
     become_user: "{{ username }}"
