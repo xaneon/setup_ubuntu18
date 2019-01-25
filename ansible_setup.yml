@@ -57,6 +57,7 @@
                 - python3.6-dev 
                 - python3.6-tk 
                 - python3.7-tk 
+                - python3.7-dev
                 - virtualenv 
                 - virtualenvwrapper 
                 - libncurses5-dev 
@@ -70,6 +71,9 @@
                 - tk8.6
                 - tk8.6-dev
                 - ansible
+                - wireshark
+                - tshark
+                - xsnow
 
   - name: Downloading Python3 sources
     get_url:
@@ -86,7 +90,6 @@
     register: python3_source_unpack
 
   - name: Configuring Python3 source with custom modules
-    # command: "./configure --sbin-path={{ nginx_sbin_path }} --conf-path={{ nginx_conf_path }} {{ nginx_custom_modules }}"
     # command: "./configure --enable-optimizations --with-tcltk-includes='-I/usr/include' --with-tcltk-libs='-L/usr/lib64 -ltcl8.6 -L/usr/lib64 -ltk8.6'"
     command: "./configure --enable-optimizations"
     args:
@@ -94,3 +97,9 @@
     when: python3_source_unpack is changed
     register: python3_configure
 
+  - name: Installing Python3
+    become: yes
+    shell: make && make install
+    args:
+      chdir: "{{ python3_install_dir }}"
+    when: python3_configure is changed
