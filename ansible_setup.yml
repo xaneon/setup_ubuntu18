@@ -13,12 +13,38 @@
     python3_url: "https://www.python.org/ftp/python/{{ python3_version }}/Python-{{ python3_version }}.tgz"
     python3_install_dir: "/tmp/Python-{{ python3_version }}"
     virtenvwrapper_script: "/usr/share/virtualenvwrapper/virtualenvwrapper.sh"
+    python27: "/usr/bin/python2.7"
+    python36: "/usr/bin/python3.6"
     python37: "/usr/bin/python3.7"
     user_home_dir: "/home/{{ username }}/"
     virtualenv_dir: "{{ user_home_dir }}/.virtualenvs"
     virtualenvs: 
         - {name: "Default3.7", interpreter: "{{ python37 }}", 
            rfile: "requirements_default37.txt"}
+        - {name: "KIML3.7", interpreter: "{{ python37 }}", 
+           rfile: "requirements_kiml37.txt"}
+        - {name: "PYFE3.7", interpreter: "{{ python37 }}", 
+           rfile: "requirements_pyfe37.txt"}
+        - {name: "PRPN3.7", interpreter: "{{ python37 }}", 
+           rfile: "requirements_prpn37.txt"}
+        - {name: "BIGD3.7", interpreter: "{{ python37 }}", 
+           rfile: "requirements_bigd37.txt"}
+        - {name: "PYDA3.7", interpreter: "{{ python37 }}", 
+           rfile: "requirements_pyda37.txt"}
+        - {name: "KIML3.6", interpreter: "{{ python36 }}", 
+           rfile: "requirements_kiml36.txt"}
+        - {name: "PYFE3.6", interpreter: "{{ python36 }}", 
+           rfile: "requirements_pyfe36.txt"}
+        - {name: "PRPN3.6", interpreter: "{{ python36 }}", 
+           rfile: "requirements_prpn36.txt"}
+        - {name: "BIGD3.6", interpreter: "{{ python36 }}", 
+           rfile: "requirements_bigd36.txt"}
+        - {name: "PYDA3.6", interpreter: "{{ python36 }}", 
+           rfile: "requirements_pyda36.txt"}
+        - {name: "Default3.6", interpreter: "{{ python36 }}", 
+           rfile: "requirements_default36.txt"}
+        - {name: "Default2.7", interpreter: "{{ python27 }}", 
+           rfile: "requirements_default27.txt"}
     setup_dir: "setup_ubuntu18"
 
   tasks:
@@ -121,7 +147,7 @@
     become_user: "{{ username }}"
 
   - name: installing pip packages
-    pip:
+    pip: 
       # requirements: "/{{ project_name }}/ {{ project_requirements }}"
       requirements: "{{ user_home_dir }}/{{ setup_dir }}/{{ item.rfile }}"
       virtualenv: "{{ virtualenv_dir }}/{{ item.name }}"
