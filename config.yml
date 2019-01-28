@@ -1,5 +1,6 @@
 username: bh
 vm_host_dir: "/media/sf_caumont/"
+user_home_dir: "/home/{{ username }}/"
 db_dir: "{{ vm_host_dir }}/Dropbox"
 vm_host_name: "WHOTRSURFACE20"
 dot_dir: "{{ db_dir }}/Dotfiles/{{ vm_host_name }}"
@@ -22,11 +23,14 @@ virtenvwrapper_script: "/usr/share/virtualenvwrapper/virtualenvwrapper.sh"
 python27: "/usr/bin/python2.7"
 python36: "/usr/bin/python3.6"
 python37: "/usr/bin/python3.7"
-user_home_dir: "/home/{{ username }}/"
 virtualenv_dir: "{{ user_home_dir }}/.virtualenvs"
 course_folders:
         - "{{ et_course_dir }}/PYFE/pyfe_latest"
         - "{{ et_course_dir }}/BIGD/bigd_latest"
+        - "{{ et_course_dir }}/KIML/kiml_latest"
+        - "{{ et_course_dir }}/PRPN/prpn_latest"
+        - "{{ et_course_dir }}/PRFN/prfn_latest"
+        - "{{ et_course_dir }}/PYTH/pyth_latest"
 req_dir: "requirements"
 virtualenvs: 
     - {name: "Testing3.7", interpreter: "{{ python37 }}", 

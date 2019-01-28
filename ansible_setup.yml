@@ -95,6 +95,11 @@
                 - tshark
                 - xsnow
 
+  - name: Add folders to autojump
+    become_user: "{{ username }}"
+    command: "autojump --add {{ item }}"
+    with_items: "{{ course_folders }}"
+
   - name: Downloading Python3 sources
     get_url:
       url: "{{ python3_url }}"
