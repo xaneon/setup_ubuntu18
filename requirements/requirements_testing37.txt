@@ -1,0 +1,20 @@
+cython
+numpy
+-e git+https://github.com/numpy/numpy.git#egg=numpy
+-e git+https://github.com/scipy/scipy.git#egg=scipy
+scipy
+matplotlib
+-e git+https://github.com/matplotlib/matplotlib.git#egg=matplotlib
+seaborn
+scikit-learn
+netmiko
+pandas
+-e git+https://github.com/pandas-dev/pandas.git#egg=pandas
+sqlalchemy
+statsmodels
+ipython
+jupyter
+ipykernel
+mypy
+ncclient
+lxml

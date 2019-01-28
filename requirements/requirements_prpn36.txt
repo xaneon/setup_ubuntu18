@@ -14,3 +14,6 @@ mypy
 ncclient
 lxml
 pyang
+pyangbind
+beautifulsoup4
+html5lib

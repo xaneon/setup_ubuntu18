@@ -20,6 +20,8 @@
     virtualenv_dir: "{{ user_home_dir }}/.virtualenvs"
     req_dir: "requirements"
     virtualenvs: 
+        - {name: "Testing3.7", interpreter: "{{ python37 }}", 
+           rfile: "{{ req_dir }}/requirements_testing37.txt"}
         - {name: "Default3.7", interpreter: "{{ python37 }}", 
            rfile: "{{ req_dir }}/requirements_default37.txt"}
         - {name: "KIML3.7", interpreter: "{{ python37 }}", 
@@ -59,6 +61,22 @@
     apt: name={{item}} state=present
     with_items:
                 - locate
+                - cmake 
+                - g++ 
+                - gfortran 
+                - libfreetype6-dev  # for matplotlib
+                - libpng-dev  # for matplotlib
+                - libjs-mathjax  # for matplotlib
+                - fonts-mathjax # for matplotlib
+                - libblas-test # for compiling numpy / pandas
+                - libopenblas-base # for compiling numpy / pandas
+                - libopenblas-dev # for compiling numpy / pandas
+                - pkg-config 
+                - python-dev 
+                - r-base # install R
+                - scala # install Scala
+                - software-properties-common 
+                - wget
                 - vmfs-tools 
                 - vmware-manager 
                 - vim  
