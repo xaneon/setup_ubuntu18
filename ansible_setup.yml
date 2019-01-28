@@ -18,7 +18,7 @@
     virtualenv_dir: "{{ user_home_dir }}/.virtualenvs"
     virtualenvs: 
         - {name: "Default3.7", interpreter: "{{ python37 }}", 
-           rfile: "requirements_default.txt"}
+           rfile: "requirements_default37.txt"}
     setup_dir: "setup_ubuntu18"
 
   tasks:
@@ -114,7 +114,7 @@
     when: python3_configure is changed
 
   - name: creating new virtualenv envs
-    shell: "virtualenv -p {{ python37 }} {{ item.name }}"
+    shell: "virtualenv -p {{ item.interpreter }} {{ item.name }}"
     args:
       chdir: "{{ virtualenv_dir }}/"
     with_items: "{{ virtualenvs }}"
