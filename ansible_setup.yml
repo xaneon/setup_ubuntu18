@@ -1,6 +1,6 @@
 ---
 
-- name: Testing...
+- name: Setting up VMs ...
   hosts: localhost
   connection: local
   become: true
@@ -18,33 +18,34 @@
     python37: "/usr/bin/python3.7"
     user_home_dir: "/home/{{ username }}/"
     virtualenv_dir: "{{ user_home_dir }}/.virtualenvs"
+    req_dir: "requirements"
     virtualenvs: 
         - {name: "Default3.7", interpreter: "{{ python37 }}", 
-           rfile: "requirements_default37.txt"}
+           rfile: "{{ req_dir }}/requirements_default37.txt"}
         - {name: "KIML3.7", interpreter: "{{ python37 }}", 
-           rfile: "requirements_kiml37.txt"}
+           rfile: "{{ req_dir }}/requirements_kiml37.txt"}
         - {name: "PYFE3.7", interpreter: "{{ python37 }}", 
-           rfile: "requirements_pyfe37.txt"}
+           rfile: "{{ req_dir }}/requirements_pyfe37.txt"}
         - {name: "PRPN3.7", interpreter: "{{ python37 }}", 
-           rfile: "requirements_prpn37.txt"}
+           rfile: "{{ req_dir }}/requirements_prpn37.txt"}
         - {name: "BIGD3.7", interpreter: "{{ python37 }}", 
-           rfile: "requirements_bigd37.txt"}
+           rfile: "{{ req_dir }}/requirements_bigd37.txt"}
         - {name: "PYDA3.7", interpreter: "{{ python37 }}", 
-           rfile: "requirements_pyda37.txt"}
+           rfile: "{{ req_dir }}/requirements_pyda37.txt"}
         - {name: "KIML3.6", interpreter: "{{ python36 }}", 
-           rfile: "requirements_kiml36.txt"}
+           rfile: "{{ req_dir }}/requirements_kiml36.txt"}
         - {name: "PYFE3.6", interpreter: "{{ python36 }}", 
-           rfile: "requirements_pyfe36.txt"}
+           rfile: "{{ req_dir }}/requirements_pyfe36.txt"}
         - {name: "PRPN3.6", interpreter: "{{ python36 }}", 
-           rfile: "requirements_prpn36.txt"}
+           rfile: "{{ req_dir }}/requirements_prpn36.txt"}
         - {name: "BIGD3.6", interpreter: "{{ python36 }}", 
-           rfile: "requirements_bigd36.txt"}
+           rfile: "{{ req_dir }}/requirements_bigd36.txt"}
         - {name: "PYDA3.6", interpreter: "{{ python36 }}", 
-           rfile: "requirements_pyda36.txt"}
+           rfile: "{{ req_dir }}/requirements_pyda36.txt"}
         - {name: "Default3.6", interpreter: "{{ python36 }}", 
-           rfile: "requirements_default36.txt"}
+           rfile: "{{ req_dir }}/requirements_default36.txt"}
         - {name: "Default2.7", interpreter: "{{ python27 }}", 
-           rfile: "requirements_default27.txt"}
+           rfile: "{{ req_dir }}/requirements_default27.txt"}
     setup_dir: "setup_ubuntu18"
 
   tasks:
@@ -140,7 +141,8 @@
     when: python3_configure is changed
 
   - name: creating new virtualenv envs
-    shell: "virtualenv -p {{ item.interpreter }} {{ item.name }}"
+    # shell: "virtualenv -p {{ item.interpreter }} {{ item.name }}"
+    command: "virtualenv {{ virtualenv_dir}}/{{ item.name  }} -p {{item.interpreter}} creates={{ virtualenv_dir }}/{{ item.name }}"
     args:
       chdir: "{{ virtualenv_dir }}/"
     with_items: "{{ virtualenvs }}"

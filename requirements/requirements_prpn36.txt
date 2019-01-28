@@ -13,3 +13,4 @@ ipykernel
 mypy
 ncclient
 lxml
+pyang
