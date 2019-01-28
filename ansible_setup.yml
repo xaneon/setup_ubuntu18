@@ -9,6 +9,18 @@
 
   vars:
     username: bh
+    vm_host_dir: "/media/sf_caumont/"
+    db_dir: "{{ vm_host_dir }}/Dropbox"
+    vm_host_name: "WHOTRSURFACE20"
+    dot_dir: "{{ db_dir }}/Dotfiles/{{ vm_host_name }}"
+    link_files:
+            - vimrc
+            - bashrc
+            - tmux.conf
+            - vim
+            - jupyter
+            - powerline
+            - pip_download_cache
     python3_version: 3.7.2
     python3_url: "https://www.python.org/ftp/python/{{ python3_version }}/Python-{{ python3_version }}.tgz"
     python3_install_dir: "/tmp/Python-{{ python3_version }}"
@@ -51,6 +63,13 @@
     setup_dir: "setup_ubuntu18"
 
   tasks:
+  - name: Get the links correct
+    file:
+        src: "{{ dot_dir }}/{{ item }}"
+        dest: "{{ user_home_dir }}/.{{ item }}"
+        state: link
+    with_items: "{{ link_files }}"
+
   - name: Python3.7 PPA 
     apt_repository:
       validate_certs: no
