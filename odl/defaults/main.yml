@@ -1,0 +1,12 @@
+---
+# defaults file for odl
+install_odl_source: true
+odl_install_dir: "/usr/local/odl"
+odl_install_options:
+        - {"name": "with_all_features", "dir": "odl_with_all_features"}
+        - {"name": "with_no_features", "dir": "odl_with_no_features"}
+odl_base_url: "https://nexus.opendaylight.org"
+odl_ressource: "content/repositories/opendaylight.release/org/opendaylight/integration/karaf"
+odl_version: "0.7.2"
+odl_url: "{{ odl_base_url }}/{{ odl_ressource }}/{{ odl_version }}"
+odl_tar_file: "{{ odl_url }}/karaf-{{ odl_version}}.tar.gz"

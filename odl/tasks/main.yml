@@ -1,0 +1,34 @@
+---
+# tasks file for odl
+- name: Add variables
+  include_vars: "{{ role_path }}/defaults/main.yml"
+
+- name: Downloading ODL sources
+  get_url:
+          url: "{{ odl_tar_file }}"
+          dest: "/tmp/karaf-{{ odl_version }}.tar.gz"
+  register: odl_source
+  when: install_odl_source == true
+
+- name: Ensure directory exists
+  file: 
+        path: "{{ odl_install_dir}}/{{ item.dir }}"
+        state: directory
+        recurse: yes
+        mode: "777"
+  with_items: "{{ odl_install_options }}"
+
+- name: Unpacking ODL
+  unarchive:
+          copy: no
+          src: "{{ odl_source.dest }}"
+          dest: "{{ odl_install_dir }}/{{ item.dir }}/"
+  register: odl_source_unpack 
+  with_items: "{{ odl_install_options }}"
+  when: odl_source.changed and install_odl_source == true
+
+
+
+
+
+
