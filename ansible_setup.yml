@@ -1,18 +1,23 @@
 ---
 
 - name: Setting up VMs ...
-  hosts: localhost
+  hosts: ubuntu
   connection: local
+  gather_facts: no     
   become: true
   become_user: root
   become_method: sudo
-
+  
   roles:
           - java  # Java setup, see java/tasks/main.yml
 
   vars_files:
           - config.yml
   tasks:
+  - name: Accessing variables in inventory file
+    debug:
+            msg: "Setting up the following host: {{ ansible_host }}"
+
   - name: Get the links correct
     file:
         src: "{{ dot_dir }}/{{ item }}"
