@@ -132,5 +132,6 @@ apt_packages:
     - wireshark 
     - tshark 
     - xsnow
+    - openssh-server
       # - oracle-java8-set-default
       # - oracle-java8-installer
