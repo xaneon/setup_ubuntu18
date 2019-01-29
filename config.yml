@@ -77,6 +77,8 @@ apt_packages:
     - libopenblas-dev # for compiling numpy / pandas 
     - pkg-config  
     - python-dev  
+    - tree
+    - maven
     - r-base # install R 
     - scala # install Scala 
     - software-properties-common  

@@ -8,8 +8,10 @@
   become_method: sudo
   
   roles:
-          - java  # Java setup, see java/tasks/main.yml
-          - odl # ODL setup
+          - role: java  # Java setup, see java/tasks/main.yml
+          - role: odl # ODL setup
+          # - role: opendaylight
+          # extra_features: ['odl-netvirt-openstack']
 
   vars_files:
           - config.yml
