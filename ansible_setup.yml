@@ -1,15 +1,15 @@
 ---
 
 - name: Setting up VMs ...
-  hosts: ubuntu
+  hosts:  localhost # or ubuntu, see hosts.ini
   connection: local
-  gather_facts: no     
   become: true
   become_user: root
   become_method: sudo
   
   roles:
           - java  # Java setup, see java/tasks/main.yml
+          - odl # ODL setup
 
   vars_files:
           - config.yml
