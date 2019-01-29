@@ -1,4 +1,5 @@
 username: bh
+install_py37_source: false # true
 vm_host_dir: "/media/sf_caumont/"
 user_home_dir: "/home/{{ username }}/"
 db_dir: "{{ vm_host_dir }}/Dropbox"
