@@ -1,6 +1,22 @@
+
 - name: Java 8 PPA
   apt_repository:
           validate_certs: no
           repo: 'ppa:webupd8team/java'
           state: present
+
+- name: Add variables
+  include_vars: "{{ role_path }}/defaults/main.yml"
+
+- name: Accept Java 8 License
+  become: yes
+  debconf: 
+        name='oracle-java8-installer' 
+        question='shared/accepted-oracle-license-v1-1' 
+        value='true' 
+        vtype='select'
+
+- name: Install all apt-packages
+  apt: name={{item}} state=present
+  with_items: "{{ apt_java_packages }}"
 

@@ -1,2 +1,8 @@
 ---
 # defaults file for java
+apt_java_packages:
+        - openjdk-8-jdk
+        - openjdk-8-jre
+        - oracle-java8-installer
+        - ca-certificates
+        - oracle-java8-set-default
