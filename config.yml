@@ -132,3 +132,6 @@ apt_packages:
     - wireshark 
     - tshark 
     - xsnow
+    - openjdk-8-jdk
+      # - oracle-java8-set-default
+      # - oracle-java8-installer

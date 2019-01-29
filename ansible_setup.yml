@@ -7,6 +7,9 @@
   become_user: root
   become_method: sudo
 
+  roles:
+          - java  # Java setup, see java/tasks/main.yml
+
   vars_files:
           - config.yml
   tasks:

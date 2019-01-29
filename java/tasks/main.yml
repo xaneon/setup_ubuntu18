@@ -1,0 +1,6 @@
+- name: Java 8 PPA
+  apt_repository:
+          validate_certs: no
+          repo: 'ppa:webupd8team/java'
+          state: present
+
