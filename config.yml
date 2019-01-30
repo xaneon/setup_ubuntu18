@@ -73,6 +73,7 @@ apt_packages:
     - sqlite3 
     - ansible 
     - wireshark 
+    - mininet
     - tshark 
     - xsnow
     - openssh-server
