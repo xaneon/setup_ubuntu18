@@ -16,6 +16,7 @@ link_files:
         - jupyter
         - powerline
         - pip_download_cache
+        - m2 # maven directory with settings.xml
 
 course_folders:
         - "{{ et_course_dir }}/PYFE/pyfe_latest"
