@@ -1,0 +1,63 @@
+---
+# tasks file for python
+- name: Add variables
+  include_vars: "{{ role_path }}/defaults/main.yml"
+
+- name: Python3.7 PPA 
+  apt_repository:
+    validate_certs: no
+    repo: 'ppa:deadsnakes/ppa'
+    state: present
+
+- name: Install all apt-packages
+  apt: name={{item}} state=present
+  with_items: "{{ python_apt_packages }}"
+
+- name: Downloading Python3 sources
+  get_url:
+    url: "{{ python3_url }}"
+    dest: "/tmp/Python-{{ python3_version }}.tar.gz"
+  register: python3_source
+  when: install_py37_source == true
+
+- name: Unpacking Python3
+  unarchive:
+    copy: no
+    src: "{{ python3_source.dest }}"
+    dest: /tmp/
+  when: python3_source.changed and install_py37_source == true
+  register: python3_source_unpack 
+
+- name: Configuring Python3 source with custom modules
+  # command: "./configure --enable-optimizations --with-tcltk-includes='-I/usr/include' --with-tcltk-libs='-L/usr/lib64 -ltcl8.6 -L/usr/lib64 -ltk8.6'"
+  command: "./configure --enable-optimizations"
+  args:
+    chdir: "{{ python3_install_dir }}"
+  when: python3_source_unpack is changed and install_py37_source == true
+  register: python3_configure 
+
+- name: Installing Python3
+  become: yes
+  shell: make && make install
+  args:
+    chdir: "{{ python3_install_dir }}"
+  when: python3_configure is changed and install_py37_source == true
+
+- name: creating new virtualenv envs
+  # shell: "virtualenv -p {{ item.interpreter }} {{ item.name }}"
+  command: "virtualenv {{ virtualenv_dir}}/{{ item.name  }} -p {{item.interpreter}} creates={{ virtualenv_dir }}/{{ item.name }}"
+  args:
+    chdir: "{{ virtualenv_dir }}/"
+  with_items: "{{ virtualenvs }}"
+  become_user: "{{ username }}"
+
+- name: installing pip packages
+  pip: 
+    # requirements: "/{{ project_name }}/ {{ project_requirements }}"
+    # requirements: "{{ user_home_dir }}/{{ setup_dir }}/{{ item.rfile }}"
+    requirements: "{{ item.rfile }}"
+    virtualenv: "{{ virtualenv_dir }}/{{ item.name }}"
+    virtualenv_python: "{{ item.interpreter }}"
+  with_items: "{{ virtualenvs }}"
+  become_user: "{{ username }}"
+
