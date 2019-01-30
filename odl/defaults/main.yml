@@ -6,6 +6,8 @@ odl_install_options:
         - {"name": "with_all_features", "dir": "odl_with_all_features"}
         - {"name": "with_no_features", "dir": "odl_with_no_features"}
 odl_base_url: "https://nexus.opendaylight.org"
+odl_integration_gitrep: "https://github.com/opendaylight/integration-packaging-ansible-opendaylight.git"
+odl_integration_dir: "/tmp/integration-packaging-ansible-opendaylight.git"
 odl_ressource: "content/repositories/opendaylight.release/org/opendaylight/integration/karaf"
 odl_version: "0.7.2"
 odl_url: "{{ odl_base_url }}/{{ odl_ressource }}/{{ odl_version }}"
