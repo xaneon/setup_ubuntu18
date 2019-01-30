@@ -27,6 +27,23 @@
   with_items: "{{ odl_install_options }}"
   when: odl_source.changed and install_odl_source == true
 
+- name: Clone ODL package
+  git:
+    repo: "https://github.com/opendaylight/integration-packaging-ansible-opendaylight.git"
+    version: master
+    dest: "/tmp/integration-packaging-ansible-opendaylight"
+    accept_hostkey: yes
+  register: odl_integration_git
+  # ssh-agent doesn't allow key to pass through remote sudo commands.
+
+- name: Add ODL integration package to Ansible
+  command: "ansible-galaxy install -r requirements.yml"
+  args:
+    chdir: "/tmp/integration-packaging-ansible-opendaylight"
+    # chdir: "{{ odl_integration_git.dest }}"
+  when: odl_integration_git is changed
+  register: odl_integration_add
+
 
 
 
