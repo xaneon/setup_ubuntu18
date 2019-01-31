@@ -78,3 +78,4 @@ apt_packages:
     - xsnow
     - openssh-server
     - sshpass
+    - expect
