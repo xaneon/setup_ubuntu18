@@ -2,9 +2,15 @@
 # defaults file for odl
 install_odl_source: true
 odl_install_dir: "/usr/local/odl"
+odl_controller1: "odl_with_all_features"
+odl_controller2: "odl_with_minimal_features"
+odl_minimal_packages: "odl-dlux-core odl-dluxapps-topology odl-openflowplugin-flow-services odl-restconf-all odl-vtn-manager-rest odl-l2switch-hosttracker odl-l2switch-switch"
 odl_install_options:
-        - {"name": "with_all_features", "dir": "odl_with_all_features"}
-        - {"name": "with_no_features", "dir": "odl_with_no_features"}
+        - {"name": "{{ odl_controller1 }}", "dir": "{{ odl_controller1 }}", 
+           "odl_packages": "odl-dlux-core odl-dluxapps-topology odl-openflowplugin-flow-services odl-restconf-all odl-vtn-manager-rest odl-l2switch-hosttracker odl-l2switch-switch"}
+        - {"name": "{{ odl_controller2 }}", "dir": "{{ odl_controller2 }}",
+           "odl_packages": "odl-dlux-core odl-dluxapps-topology odl-openflowplugin-flow-services odl-restconf-all odl-vtn-manager-rest odl-l2switch-hosttracker"}
+
 odl_base_url: "https://nexus.opendaylight.org"
 odl_integration_gitrep: "https://github.com/opendaylight/integration-packaging-ansible-opendaylight.git"
 odl_integration_dir: "/tmp/integration-packaging-ansible-opendaylight.git"

@@ -45,6 +45,21 @@
   when: odl_integration_git is changed
   register: odl_integration_add
 
+- name: Start ODL Karaf headless server 1
+  shell: "sh {{ odl_install_dir}}/{{ odl_controller1 }}/karaf-{{ odl_version }}/bin/start"
+  delay: 5
+
+- name: Install Packages
+  shell: "sshpass -p karaf ssh -p 8101 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no karaf@localhost feature:install {{ odl_minimal_packages }}"
+
+- name: Stop ODL Karaf
+  shell: "sh {{ odl_install_dir}}/{{ odl_controller1 }}/karaf-{{ odl_version }}/bin/stop"
+
+# TODO: setup the second controller in a similar way plus the l2switching package
+
+
+
+
 
 
 
