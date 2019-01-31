@@ -77,3 +77,4 @@ apt_packages:
     - tshark 
     - xsnow
     - openssh-server
+    - sshpass

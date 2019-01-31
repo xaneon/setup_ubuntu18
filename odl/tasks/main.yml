@@ -15,7 +15,8 @@
         path: "{{ odl_install_dir}}/{{ item.dir }}"
         state: directory
         recurse: yes
-        mode: "777"
+        mode: "0777"
+        owner: "{{ username }}"
   with_items: "{{ odl_install_options }}"
 
 - name: Unpacking ODL
