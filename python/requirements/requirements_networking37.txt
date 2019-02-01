@@ -1,0 +1,14 @@
+numpy
+scipy
+matplotlib
+seaborn
+scikit-learn
+pandas
+jupyter
+ipython
+ipykernel
+ncclient
+netmiko
+napalm
+pysnmp
+pexpect
