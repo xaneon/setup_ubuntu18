@@ -4,7 +4,7 @@ install_odl_source: true
 odl_install_dir: "/usr/local/odl"
 odl_controller1: "odl_with_all_features"
 odl_controller2: "odl_with_minimal_features"
-odl_minimal_packages: "odl-dlux-core odl-dluxapps-topology odl-openflowplugin-flow-services odl-restconf-all odl-vtn-manager-rest odl-l2switch-hosttracker odl-l2switch-switch"
+odl_minimal_packages: "odl-dlux-core odl-dluxapps-topology odl-openflowplugin-flow-services odl-restconf-all odl-vtn-manager-rest odl-l2switch-hosttracker "
 odl_install_options:
         - {"name": "{{ odl_controller1 }}", "dir": "{{ odl_controller1 }}", 
            "odl_packages": "odl-dlux-core odl-dluxapps-topology odl-openflowplugin-flow-services odl-restconf-all odl-vtn-manager-rest odl-l2switch-hosttracker odl-l2switch-switch"}

@@ -8,9 +8,9 @@
   become_method: sudo
 
   roles:
-          # - role: python # Python3 setup
-          # - role: java  # Java setup, see java/tasks/main.yml
-          # - role: odl # ODL setup
+          - role: python # Python3 setup
+          - role: java  # Java setup, see java/tasks/main.yml
+          - role: odl # ODL setup
           # - role: opendaylight
           # extra_features: ['odl-netvirt-openstack']
 
