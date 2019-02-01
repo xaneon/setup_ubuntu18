@@ -1,0 +1,5 @@
+---
+# tasks file for docker
+- name: Get the relevant apt packages
+  apt: name={{item}} state=present
+  with_items: "{{ docker_apt_packages }}"
