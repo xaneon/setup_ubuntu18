@@ -50,7 +50,9 @@
   delay: 5
 
 - name: Install Packages
-  shell: "sshpass -p karaf ssh -p 8101 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no karaf@localhost feature:install {{ odl_minimal_packages }}"
+  # shell: "sshpass -p karaf ssh -p 8101 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no karaf@localhost feature:install {{ odl_minimal_packages }}"
+  shell: "sshpass -p karaf ssh -p 8101 -o HostKeyAlgorithms=ssh-rsa,ssh-dss -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no karaf@localhost feature:install {{ odl_minimal_packages }}"
+
 
 - name: Stop ODL Karaf
   shell: "sh {{ odl_install_dir}}/{{ odl_controller1 }}/karaf-{{ odl_version }}/bin/stop"
