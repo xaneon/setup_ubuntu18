@@ -3,3 +3,34 @@
 - name: Get the relevant apt packages
   apt: name={{item}} state=present
   with_items: "{{ docker_apt_packages }}"
+
+- name: Add Docker repository key
+  apt_key: url=https://download.docker.com/linux/ubuntu/gpg validate_certs=no
+  register: add_repository_key
+  ignore_errors: true
+
+- name: Alternative | Add Docker repository key
+  shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  when: add_repository_key is failed
+
+- name: Add Docker PPA
+  apt_repository:
+    validate_certs: no
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+    state: present
+
+- name: Install docker
+  apt: name=docker-ce 
+  state: present
+  update_cache: true
+
+- name: Make sure that docker daemon is started
+  systemd:
+    state: restarted
+    daemon_reload: yes
+    name: docker
+
+# TODO: add the docker group and continue docker setup and first container
+
+# TODO
+
