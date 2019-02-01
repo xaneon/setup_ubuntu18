@@ -94,4 +94,8 @@ apt_packages:
     - texlive-xetex
     - texlive-pstricks
     - texlive-science
-    - xelatex
+    - apt-transport-https
+    - ca-certificates 
+    - curl 
+    - software-properties-common
+

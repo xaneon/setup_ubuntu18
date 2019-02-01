@@ -13,6 +13,10 @@ req_dir: "{{ role_path }}/requirements"
 virtualenvs: 
 # - {name: "Testing3.7", interpreter: "{{ python37 }}", 
 #        rfile: "{{ req_dir }}/requirements_testing37.txt"}
+    - {name: "DataScience3.7", interpreter: "{{ python37 }}", 
+       rfile: "{{ req_dir }}/requirements_datascience37.txt"}
+    - {name: "Networking3.7", interpreter: "{{ python37 }}", 
+       rfile: "{{ req_dir }}/requirements_networking37.txt"}
     - {name: "Default3.7", interpreter: "{{ python37 }}", 
        rfile: "{{ req_dir }}/requirements_default37.txt"}
     - {name: "KIML3.7", interpreter: "{{ python37 }}", 
