@@ -36,7 +36,18 @@
   - name: Install all apt-packages
     apt: name={{item}} state=present
     with_items: "{{ apt_packages }}"
-    
+  
+  - name: Add deb-src in sources.list (necessary for imagemagick)
+    apt_repository:
+        repo: deb-src http://de.archive.ubuntu.com/ubuntu/ bionic main restricted
+        state: present 
+        update_cache: yes
+  
+  # - name: Download and install Imagemagick for U18.04
+
+  - name: Install imagemagick with build dependencies
+    apt: name=imagemagick state=build-dep
+
   - name: Add folders to autojump
     become_user: "{{ username }}"
     command: "autojump --add {{ item }}"

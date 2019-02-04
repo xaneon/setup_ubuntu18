@@ -94,4 +94,8 @@ apt_packages:
     - texlive-xetex
     - texlive-pstricks
     - texlive-science
+    - snmpd 
+    - snmp 
+    - libsnmp-dev
+
 
