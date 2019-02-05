@@ -97,5 +97,8 @@ apt_packages:
     - snmpd 
     - snmp 
     - libsnmp-dev
+    - snmp-mibs-downloader
+    - sysstat
+    - glances
 
 

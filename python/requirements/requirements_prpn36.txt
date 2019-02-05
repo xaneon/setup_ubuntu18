@@ -17,3 +17,4 @@ pyang
 pyangbind
 beautifulsoup4
 html5lib
+pysnmp
