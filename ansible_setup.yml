@@ -86,6 +86,36 @@
   - name: Install imagemagick with build dependencies
     apt: name=imagemagick state=build-dep
 
+  - name: Downloading imagemagick sources
+    get_url:
+      url: "{{ imagemagick_url }}"
+      dest: "/tmp/ImageMagick-{{ imagemagick_version }}.tar.gz"
+    register: imagemagick_source
+    when: install_imagemagick_source == true
+  
+  - name: Unpacking Imagemagick
+    unarchive:
+      copy: no
+      src: "{{ imagemagick_source.dest }}"
+      dest: /tmp/
+    when: imagemagick_source.changed and install_imagemagick_source == true
+    register: imagemagick_source_unpack 
+  
+  - name: Configuring Imagemagick source
+    command: "./configure"
+    args:
+      chdir: "{{ imagemagick_install_dir }}"
+    when: imagemagick_source_unpack is changed and install_imagemagick_source == true
+    register: imagemagick_configure 
+
+  - name: Installing Imagemagick
+    become: yes
+    shell: make && make install
+    args:
+      chdir: "{{ imagemagick_install_dir }}"
+    when: imagemagick_configure is changed and install_imagemagick_source == true
+
+
   - name: Add folders to autojump
     become_user: "{{ username }}"
     command: "autojump --add {{ item }}"

@@ -13,6 +13,11 @@ ssh_user_folder: "{{ user_home_dir }}/.ssh/"
 ssh_rsa_file: "ssh_host_rsa_key"
 ssh_dsa_file: "ssh_host_dsa_key"
 ssh_ecdsa_file: "ssh_host_ecdsa_key"
+imagemagick_version: "7.0.8-26"
+imagemagick_url: "https://www.imagemagick.org/download/ImageMagick-{{ imagemagick_version }}.tar.gz"
+imagemagick_install_dir: "/tmp/ImageMagick-{{ imagemagick_version }}"
+install_imagemagick_source: true
+
 link_files:
         - vimrc
         - bashrc
