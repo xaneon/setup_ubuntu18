@@ -8,6 +8,11 @@ dot_dir: "{{ db_dir }}/Dotfiles/{{ vm_host_name }}"
 eigene_dir: "{{ db_dir }}/EigeneDateien"
 et_dir: "{{ eigene_dir }}/7_Professional/ExperTeach/"
 et_course_dir: "{{ et_dir }}/ET_Courses/"
+ssh_folder: "/etc/ssh/"
+ssh_user_folder: "{{ user_home_dir }}/.ssh/"
+ssh_rsa_file: "ssh_host_rsa_key"
+ssh_dsa_file: "ssh_host_dsa_key"
+ssh_ecdsa_file: "ssh_host_ecdsa_key"
 link_files:
         - vimrc
         - bashrc
@@ -100,5 +105,6 @@ apt_packages:
     - snmp-mibs-downloader
     - sysstat
     - glances
+    - gedit
 
 

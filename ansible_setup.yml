@@ -8,8 +8,8 @@
   become_method: sudo
 
   roles:
-          - role: python # Python3 setup
-          - role: docker # Docker setup
+          # - role: python # Python3 setup
+          # - role: docker # Docker setup
           # - role: java  # Java setup, see java/tasks/main.yml
           # - role: odl # ODL setup
           # - role: opendaylight
@@ -32,6 +32,44 @@
     become: true
     become_user: "{{ username }}"
     with_items: "{{ link_files }}"
+  
+  - name: Generate RSA host key
+    command : "ssh-keygen -q -t rsa -f {{ ssh_folder }}/{{ ssh_rsa_file }} -C '' -N ''"
+    args:
+      creates: "{{ ssh_folder }}/{{ ssh_rsa_file }}"
+
+  - name: Generate DSA host key
+    command : "ssh-keygen -q -t dsa -f {{ ssh_folder }}/{{ ssh_dsa_file }} -C '' -N ''"
+    args:
+      creates: "{{ ssh_folder }}/{{ ssh_dsa_file }}"
+
+  - name: Generate ECDSA host key
+    command : "ssh-keygen -q -t ecdsa -f {{ ssh_folder }}/{{ ssh_ecdsa_file }} -C '' -N ''"
+    args:
+      creates: "{{ ssh_folder }}/{{ ssh_ecdsa_file }}"
+
+  - name: Generate RSA host key
+    become: true
+    become_user: "{{ username }}"
+    # TODO: Add these parameters later -o -t rsa -b 4096 -C
+    command : "ssh-keygen -q -t rsa -f {{ ssh_user_folder }}/{{ ssh_rsa_file }} -C '' -N ''"
+    args:
+      creates: "{{ ssh_user_folder }}/{{ ssh_rsa_file }}"
+
+  - name: Generate DSA host key
+    become: true
+    become_user: "{{ username }}"
+    command : "ssh-keygen -q -t dsa -f {{ ssh_user_folder }}/{{ ssh_dsa_file }} -C '' -N ''"
+    args:
+      creates: "{{ ssh_user_folder }}/{{ ssh_dsa_file }}"
+
+  - name: Generate ECDSA host key
+    become: true
+    become_user: "{{ username }}"
+    command : "ssh-keygen -q -t ecdsa -f {{ ssh_user_folder }}/{{ ssh_ecdsa_file }} -C '' -N ''"
+    args:
+      creates: "{{ ssh_user_folder }}/{{ ssh_ecdsa_file }}"
+
 
   - name: Install all apt-packages
     apt: name={{item}} state=present
