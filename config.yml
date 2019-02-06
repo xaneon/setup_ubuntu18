@@ -108,6 +108,7 @@ apt_packages:
     - snmp 
     - libsnmp-dev
     - snmp-mibs-downloader
+    - snmptrapd
     - sysstat
     - glances
     - gedit
