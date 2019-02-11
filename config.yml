@@ -105,6 +105,7 @@ apt_packages:
     - texlive-pstricks
     - texlive-science
     - snmpd 
+    - snmptt
     - snmp 
     - libsnmp-dev
     - snmp-mibs-downloader

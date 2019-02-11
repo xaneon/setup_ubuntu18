@@ -18,3 +18,7 @@ pyangbind
 beautifulsoup4
 html5lib
 pysnmp
+pexpect
+pyyaml
+xmlschema
+pykwalify

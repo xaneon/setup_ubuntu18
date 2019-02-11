@@ -8,7 +8,7 @@
   become_method: sudo
 
   roles:
-          # - role: python # Python3 setup
+          - role: python # Python3 setup
           # - role: docker # Docker setup
           # - role: java  # Java setup, see java/tasks/main.yml
           # - role: odl # ODL setup
@@ -91,7 +91,7 @@
       url: "{{ imagemagick_url }}"
       dest: "/tmp/ImageMagick-{{ imagemagick_version }}.tar.gz"
     register: imagemagick_source
-    when: install_imagemagick_source == true
+    when: install_imagemagick_source == false
   
   - name: Unpacking Imagemagick
     unarchive:

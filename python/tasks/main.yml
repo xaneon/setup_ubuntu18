@@ -61,3 +61,8 @@
   with_items: "{{ virtualenvs }}"
   become_user: "{{ username }}"
 
+  # - name: Add kernel of each virtualenv
+  # command: "python -m ipykernel install --user --name={{ item.name }}"
+  # when: '"3.6" in item.interpreter'
+  # with_items: "{{ virtualenvs }}"
+
