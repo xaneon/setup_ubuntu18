@@ -22,3 +22,4 @@ pexpect
 pyyaml
 xmlschema
 pykwalify
+lxml

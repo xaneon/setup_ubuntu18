@@ -1,5 +1,4 @@
 ---
-
 - name: Setting up VMs ...
   hosts:  localhost # or ubuntu, see hosts.ini
   connection: local
