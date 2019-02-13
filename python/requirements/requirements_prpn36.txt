@@ -25,3 +25,4 @@ pykwalify
 lxml
 pyxb
 jinja2
+jsonschema
