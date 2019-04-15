@@ -119,3 +119,4 @@ apt_packages:
     - font-manager
     - ttf-mscorefonts-installer
     - emacs25
+    - ctags
