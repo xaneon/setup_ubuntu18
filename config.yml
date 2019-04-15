@@ -115,5 +115,7 @@ apt_packages:
     - gedit
     - network-manager-l2tp
     - network-manager-gnome
-
-
+    - asciinema  
+    - font-manager
+    - ttf-mscorefonts-installer
+    - emacs25

@@ -26,3 +26,4 @@ lxml
 pyxb
 jinja2
 jsonschema
+requests
